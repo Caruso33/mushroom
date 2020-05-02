@@ -1,0 +1,10 @@
+beautifulsoup4
+requests
+tqdm
+selenium
+pytorch
+fastai
+uvicorn
+aiohttp
+asyncio
+starlette
