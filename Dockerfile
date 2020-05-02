@@ -1,10 +1,10 @@
 FROM python:3.8-slim-buster
 
 RUN apt update
-RUN apt install -y python3-dev gcc cmake
+RUN apt install -y python3-dev gcc
 
 # Install pytorch and fastai
-RUN pip3 install fastai
+RUN pip3 install fastai wheel
 
 RUN pip3 install starlette uvicorn python-multipart aiohttp
 
