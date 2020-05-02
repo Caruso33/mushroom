@@ -1,7 +1,7 @@
 FROM python:3.8-slim-buster
 
 RUN apt update
-RUN apt install -y python3-dev gcc
+RUN apt install -y python3-dev gcc cmake
 
 # Install pytorch and fastai
 RUN pip3 install fastai wheel
