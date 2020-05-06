@@ -11,9 +11,9 @@ ADD data/export.pkl export.pkl
 COPY production production/
 
 # Run it once to trigger resnet download
-RUN python server.py
+RUN python production/server.py
 
 EXPOSE 8008
 
 # Start the server
-CMD ["python", "server.py", "serve"]
+CMD ["python", "production/server.py", "serve"]
