@@ -1,3 +1,4 @@
+import os
 import sys
 import torch
 import uvicorn
@@ -16,6 +17,7 @@ app = Starlette(debug=True, routes=[
 
 if __name__ == '__main__':
     if 'serve' in sys.argv:
-        uvicorn.run('server:app', host="0.0.0.0", port=8008)
+        uvicorn.run('server:app', host="0.0.0.0",
+                    port=os.environ.get('PORT') or 8008)
     elif 'dev' in sys.argv:
         uvicorn.run('server:app', host="0.0.0.0", port=8008, reload=True)

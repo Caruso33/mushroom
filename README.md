@@ -14,7 +14,7 @@
 _\*OR\*_
 `docker-compose up`
 
-[localhost](http://0.0.0.0:8008)
+[localhost](http://0.0.0.0:80)
 
 ## Deploy to heroku
 
