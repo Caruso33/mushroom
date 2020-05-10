@@ -31,6 +31,8 @@ def train_model(images_path):
     learn.fit_one_cycle(4)
     learn.save('stage-1')
 
+    # learn.load('stage-1')
+
     learn.unfreeze()
     learn.lr_find()
     learn.recorder.plot()
@@ -38,7 +40,7 @@ def train_model(images_path):
     learn.fit_one_cycle(2, max_lr=slice(3e-5, 3e-4))
     learn.save('stage-2')
 
-    # learn.load('stage-2');
+    # learn.load('stage-2')
 
     interp = ClassificationInterpretation.from_learner(learn)
 

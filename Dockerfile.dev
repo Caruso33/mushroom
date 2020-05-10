@@ -4,7 +4,7 @@ RUN apt update
 RUN apt install -y python3-dev gcc \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install fastai starlette uvicorn python-multipart aiohttp
+RUN pip3 install fastai fastapi uvicorn python-multipart aiohttp
 
 ADD data/export.pkl export.pkl
 

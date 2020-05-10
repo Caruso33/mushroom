@@ -1,9 +1,16 @@
+from os import path
+import sys
+from dev import run_development
+from .utils.get_classes import get_class_names
+from fastai.vision import Path
 from os import path, listdir
 from os.path import join, isdir
 import sys
 from pprint import pprint
 
-from development import get_names, get_images, train_model
+import get_names
+import get_images
+import train_model
 
 
 def data_sanity_check(images_path, images_per_type):
@@ -61,3 +68,11 @@ def run_development(data_path, images_path, learner_filepath):
 
     if not path.isfileexists(learner_filepath):
         learn.export(learner_filepath)
+
+
+if __name__ == '__main__':
+    data_path = Path('../data')
+    images_path = path.join(data_path, 'images')
+    learner_filepath = path.join(data_path, 'export.pkl')
+
+    run_development(data_path, images_path, learner_filepath)
