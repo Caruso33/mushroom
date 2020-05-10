@@ -8,7 +8,9 @@ RUN pip3 install fastai starlette uvicorn python-multipart aiohttp
 
 ADD data/export.pkl export.pkl
 
-COPY production production/
+RUN mkdir /production
+
+COPY production /production
 
 # Run it once to trigger resnet download
 RUN python production/server.py

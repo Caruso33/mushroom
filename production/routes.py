@@ -6,8 +6,6 @@ import aiohttp
 from starlette.responses import JSONResponse, HTMLResponse, RedirectResponse
 from fastai.vision import open_image, Path, load_learner
 
-# data_path = Path('data')
-# learner_filepath = data_path/'export.pkl'
 learn = load_learner('.', 'export.pkl')
 
 
@@ -19,6 +17,9 @@ async def get_bytes(url):
 
 async def upload(request):
     data = await request.form()
+    if not data or len(data) == 0:
+        return JSONResponse({"error": True, "predictions": []})
+
     bytes = await (data["file"].read())
     return predict_image_from_bytes(bytes)
 
@@ -30,26 +31,31 @@ async def classify_url(request):
 
 def predict_image_from_bytes(bytes):
     img = open_image(BytesIO(bytes))
-    losses = img.predict(learn)
+
+    pred_class, pred_idx, losses = learn.predict(img)
 
     return JSONResponse({
+        "error": False,
         "predictions": sorted(
             zip(learn.data.classes, map(float, losses)),
             key=lambda p: p[1],
             reverse=True
-        )
+        ),
     })
 
 
 def form(request):
     return HTMLResponse(
         """
+        Select image to upload:
         <form action="/upload" method="post" enctype="multipart/form-data">
-            Select image to upload:
+            <br />
             <input type="file" name="file">
             <input type="submit" value="Upload Image">
         </form>
+        <br />
         Or submit a URL:
+        <br />
         <form action="/classify-url" method="get">
             <input type="url" name="url">
             <input type="submit" value="Fetch and analyze image">
